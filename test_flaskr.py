@@ -3,7 +3,6 @@ import unittest
 import json
 import pdb
 from flask_sqlalchemy import SQLAlchemy
-
 from app import create_app
 from models import setup_db, Actor, Movie
 
@@ -15,10 +14,20 @@ class CastingTestCase(unittest.TestCase):
         """Define test variables and initialize app."""
         self.app = create_app()
         self.client = self.app.test_client
+        self.testing = True
         self.database_name = "casting_test"
         self.database_path = "postgres://{}:{}@{}/{}".format('postgres', 'Admin123','localhost:5432', self.database_name)
         setup_db(self.app, self.database_path)
-        
+    
+        # binds the app to the current context
+        with self.app.app_context():
+            self.db = SQLAlchemy()
+            self.db.init_app(self.app)
+            # create all tables
+            self.db.create_all()
+
+        self.casting_director_auth_header = 'eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6ImR5WEhRQThHUm1LSTI4SXozWWlJVCJ9.eyJpc3MiOiJodHRwczovL2Rldi1mc25kbmFuby51cy5hdXRoMC5jb20vIiwic3ViIjoiYXV0aDB8NWY1MmNjZWJjNjQ3OGIwMDY3ZDkxMjA1IiwiYXVkIjoiY2FzdGluZyIsImlhdCI6MTYwMjI3NTE0OSwiZXhwIjoxNjAyMzYxNTQ5LCJhenAiOiJZeEo4Nkxoa0luN2NyWkNkMm9NRVpwcTV3Ykt4VzVMTCIsInNjb3BlIjoiIiwicGVybWlzc2lvbnMiOlsiZ2V0OmFjdG9ycyIsImdldDptb3ZpZXMiXX0.FeQ53AmAJhBHItOQnaA3dlQMi_BmYOKENA1ILpBTkj3ADpulEGJ7s96XlULTRnslv_lgKTyt7rH3yyJgrWwXKEvdk06HEfvevQsoqDdXKdiOOGSCn13dpgOX5IuyxWWhMEjCbfhFNVOTbppqC2J-3-YNlHndvYKgwmHngCC_Pu67OYABeg3Sm5H44HjY9-f6n1R8xUxM1h4LTBNlp562YevS_h7OoXvRhKUe_Rq9hEREMZ9ync_uUwRGnjJyHEstpz3cY4Z_HpOzTtBX5ytkVIkay1J9NbKtzlMovioRjnoqq9EuAY9e5iUZdADIXM-eKCX54jhnHdFwkyG3shOUFA'
+
         self.new_actor = {
             'name': 'Leonardo dicaprio', 
             'age': '44',
@@ -28,15 +37,7 @@ class CastingTestCase(unittest.TestCase):
             'title': 'Inception', 
             'release_date': '2010-11-01'
         }
-    
 
-        # binds the app to the current context
-        with self.app.app_context():
-            self.db = SQLAlchemy()
-            self.db.init_app(self.app)
-            # create all tables
-            self.db.create_all()
-    
     def tearDown(self):
         """Executed after reach test"""
         pass
@@ -49,22 +50,25 @@ class CastingTestCase(unittest.TestCase):
      GET /actors and /movies
     '''
     def test_get_actors(self):
-        res = self.client().get('/actors')
-        print(res)
-        # data = json.loads(res.data)
+        res = self.client().get('/actors', headers = {'Authorization':  'Bearer ' + self.casting_director_auth_header})
+        # print(res)
+        data = json.loads(res.data)
         # print(data)
 
-        # self.assertEqual(res.status_code, 200)
-        # self.assertEqual(data['success'], True)
-        # self.assertTrue(data['actors'])
+        self.assertEqual(res.status_code, 200)
+        self.assertEqual(data['success'], True)
+        self.assertTrue(data['actors'])
  
-    # def test_failed_get_actors(self):
-    #     res = self.client().get('/actors?page=15')
-    #     data = json.loads(res.data)
+    def test_failed_get_actors(self):
+        res = self.client().get('/actors', headers = {})
+        # print(res)
+        data = json.loads(res.data)
+        # print(data)
         
-    #     self.assertEqual(res.status_code, 200)
-    #     self.assertFalse(data['actors'])
-    #     self.assertEqual(data['success'], True)
+        self.assertEqual(res.status_code, 401)
+        # self.assertEqual(data['message'], {'code': 'authorization_header_missing', 'description':'Authorization header is expected.'})
+        self.assertFalse(data['actors'])
+        self.assertEqual(data['success'], True)
 
     # def test_get_movies(self):
     #     res = self.client().get('/movies')
@@ -201,3 +205,4 @@ class CastingTestCase(unittest.TestCase):
 # Make the tests conveniently executable
 if __name__ == "__main__":
     unittest.main()
+    app.run()
