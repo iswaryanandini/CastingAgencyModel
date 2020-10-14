@@ -91,6 +91,8 @@ The `--reload` flag will detect file changes and restart the server automaticall
     - Sign into each account and make note of the JWT.
     - Right-clicking the collection folder for Casting Director,Executive Producer and Casting Assistant, navigate to the authorization tab, and including the JWT in the token field (you should have noted these JWTs).
     - Run the collection and correct any errors.
+8. Final Header Link for my API:
+https://dev-fsndnano.us.auth0.com/authorize?audience=casting&response_type=token&client_id=YxJ86LhkIn7crZCd2oMEZpq5wbKxW5LL&redirect_uri=http://localhost:5000
 
 ## Running the UnitTescases
 
