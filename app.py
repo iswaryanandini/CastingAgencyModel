@@ -64,7 +64,7 @@ def create_app(test_config=None):
       movielist = [movie.format() for movie in moviesall]
       return jsonify({
         'success': True,
-        'movies': movielist
+        'movies': entry.format()
       })
     except:
       abort(422)
@@ -83,7 +83,7 @@ def create_app(test_config=None):
       actorslist = [actor.format() for actor in actorsall]
       return jsonify({
         'success': True,
-        'actors': actorslist
+        'actors': entry.format()
       })
     except:
       abort(422)
@@ -164,59 +164,76 @@ def create_app(test_config=None):
     except:
       abort(422)
 
+  # @TODO: Use the after_request decorator to set Access-Control-Allow
+  @app.after_request
+  def after_request(response):
+    response.headers.add('Access-Control-Allow-Headers', 'Content-Type,Authorization,true')
+    response.headers.add('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE,OPTIONS')
+    return response
+
+  ## Error Handling
+  '''
+  Example error handling for unprocessable entity
+  '''
+  @app.errorhandler(AuthError)
+  def handle_auth_error(ex):
+      response = jsonify(ex.error)
+      response.status_code = ex.status_code
+      return response
+
+  @app.errorhandler(422)
+  def unprocessable(error):
+      return jsonify({
+                      "success": False, 
+                      "error": 422,
+                      "message": "unprocessable"
+                      }), 422
+
+  @app.errorhandler(404)
+  def resource_not_found(error):
+        return jsonify({
+          "success": False,
+          "error": 404,
+          "message": "resource not found"
+        }), 404
+
+  @app.errorhandler(500)
+  def unprocessable(error):
+        return jsonify({
+          "success": False,
+          "error": 500,
+          "message": "Internal Server Error"
+        }), 500
+
+  @app.errorhandler(401)
+  def bad_request(error):
+        return jsonify({
+          "success": False,
+          "error": 401,
+          "message": "Authorization header is expected"
+          }), 401
+
+  @app.errorhandler(403)
+  def unprocessable(error):
+      return jsonify({
+                      "success": False, 
+                      "error": 403,
+                      "message": "forbidden"
+                      }), 403
+
+  @app.errorhandler(400)
+  def unprocessable(error):
+      return jsonify({
+                      "success": False, 
+                      "error": 400,
+                      "message": "unprocessable"
+                      }), 400
   return app
 
 app = create_app()
 db = SQLAlchemy(app)
 
-# @TODO: Use the after_request decorator to set Access-Control-Allow
-@app.after_request
-def after_request(response):
-  response.headers.add('Access-Control-Allow-Headers', 'Content-Type,Authorization,true')
-  response.headers.add('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE,OPTIONS')
-  return response
 
-## Error Handling
-'''
-Example error handling for unprocessable entity
-'''
-@app.errorhandler(AuthError)
-def handle_auth_error(ex):
-    response = jsonify(ex.error)
-    response.status_code = ex.status_code
-    return response
-
-@app.errorhandler(422)
-def unprocessable(error):
-    return jsonify({
-                    "success": False, 
-                    "error": 422,
-                    "message": "unprocessable"
-                    }), 422
-
-@app.errorhandler(404)
-def resource_not_found(error):
-      return jsonify({
-        "success": False,
-        "error": 404,
-        "message": "resource not found"
-      }), 404
-
-@app.errorhandler(500)
-def unprocessable(error):
-      return jsonify({
-        "success": False,
-        "error": 500,
-        "message": "Internal Server Error"
-      }), 500
-
-@app.errorhandler(401)
-def bad_request(error):
-      return jsonify({
-        "success": False,
-        "error": 401,
-        "message": "Authorization header is expected"
-        }), 401
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=8080, debug=True)

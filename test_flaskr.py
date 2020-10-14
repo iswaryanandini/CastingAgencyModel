@@ -26,14 +26,18 @@ class CastingTestCase(unittest.TestCase):
             # create all tables
             self.db.create_all()
 
-        self.casting_director_auth_header = 'eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6ImR5WEhRQThHUm1LSTI4SXozWWlJVCJ9.eyJpc3MiOiJodHRwczovL2Rldi1mc25kbmFuby51cy5hdXRoMC5jb20vIiwic3ViIjoiYXV0aDB8NWY1MmNjZWJjNjQ3OGIwMDY3ZDkxMjA1IiwiYXVkIjoiY2FzdGluZyIsImlhdCI6MTYwMjI3NTE0OSwiZXhwIjoxNjAyMzYxNTQ5LCJhenAiOiJZeEo4Nkxoa0luN2NyWkNkMm9NRVpwcTV3Ykt4VzVMTCIsInNjb3BlIjoiIiwicGVybWlzc2lvbnMiOlsiZ2V0OmFjdG9ycyIsImdldDptb3ZpZXMiXX0.FeQ53AmAJhBHItOQnaA3dlQMi_BmYOKENA1ILpBTkj3ADpulEGJ7s96XlULTRnslv_lgKTyt7rH3yyJgrWwXKEvdk06HEfvevQsoqDdXKdiOOGSCn13dpgOX5IuyxWWhMEjCbfhFNVOTbppqC2J-3-YNlHndvYKgwmHngCC_Pu67OYABeg3Sm5H44HjY9-f6n1R8xUxM1h4LTBNlp562YevS_h7OoXvRhKUe_Rq9hEREMZ9ync_uUwRGnjJyHEstpz3cY4Z_HpOzTtBX5ytkVIkay1J9NbKtzlMovioRjnoqq9EuAY9e5iUZdADIXM-eKCX54jhnHdFwkyG3shOUFA'
+        self.casting_assistant_auth_header = 'eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6ImR5WEhRQThHUm1LSTI4SXozWWlJVCJ9.eyJpc3MiOiJodHRwczovL2Rldi1mc25kbmFuby51cy5hdXRoMC5jb20vIiwic3ViIjoiYXV0aDB8NWY1MmNjZWJjNjQ3OGIwMDY3ZDkxMjA1IiwiYXVkIjoiY2FzdGluZyIsImlhdCI6MTYwMjU0ODg0MiwiZXhwIjoxNjAyNjM1MjQyLCJhenAiOiJZeEo4Nkxoa0luN2NyWkNkMm9NRVpwcTV3Ykt4VzVMTCIsInNjb3BlIjoiIiwicGVybWlzc2lvbnMiOlsiZ2V0OmFjdG9ycyIsImdldDptb3ZpZXMiXX0.btIsJzZRnzf03rYat0z8PJiJab90bAd1u9Q9qfNDwn9Ip0Y914YjoqPYcTCZ39B6R507Z7qoDU-A5WEbBcXwnRAhBhxmq4ti4G7eBHnUBPVeNwiQnq8r_qFaxwlKM6-YIMvqHljWR5hd9OJLvmbTC9V7pp5kchow1KrU3i7uHGaquAspuP6L9jZvOTe2-Qava8GnDuRDO5ec2B7TFx9UVpmZfVsNy2yfdhih6zpVm8I3Hn_ZwYqgJKkHZEZ-5TUJfxITZJlaApXpofqnAvclWVNVEDTyBpYvJKyTY4O6Wf340AlgV8PZSIyQRbZqQxcTATxwK39FmX3WGD3IdyftIw'
+        self.casting_director_auth_header = 'eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6ImR5WEhRQThHUm1LSTI4SXozWWlJVCJ9.eyJpc3MiOiJodHRwczovL2Rldi1mc25kbmFuby51cy5hdXRoMC5jb20vIiwic3ViIjoiYXV0aDB8NWY1MmNjYjRlOWVmNWYwMDY3YjY1MWRhIiwiYXVkIjoiY2FzdGluZyIsImlhdCI6MTYwMjU0ODM0MywiZXhwIjoxNjAyNjM0NzQzLCJhenAiOiJZeEo4Nkxoa0luN2NyWkNkMm9NRVpwcTV3Ykt4VzVMTCIsInNjb3BlIjoiIiwicGVybWlzc2lvbnMiOlsiZGVsZXRlOmFjdG9ycyIsImRlbGV0ZTptb3ZpZXMiLCJnZXQ6YWN0b3JzIiwiZ2V0Om1vdmllcyIsInBhdGNoOmFjdG9ycyIsInBhdGNoOm1vdmllcyIsInBvc3Q6YWN0b3JzIiwicG9zdDptb3ZpZXMiXX0.AuWFXYw-5iMgu9oThhNECAmRORaV-mDsRqUn2xulvre2Dk64Hv8Psl_TR8Mq-5XEWPeqsRmTPqOO3zILO70SvrGDSh54DzDUDCNi_LfCvG-ROupubG3Y22zh23HOyx-afogvHj95M-8IWzROl7sdKtyEtkcZ-cxDHCznLeMZfHOV-wYqcAu52HpUq0KFOZAFndDiRn3E25KWRcqo_v1VoU1Mswf31pC0o_7Eg6d9TQ1-C7qvzroPyvNbWuWCkxwrcF3UTdwgUrEh7O0rukQi64m5TlN0PRDU2PTLEHYdv18dO72DnaxZsM2ww6YpCrIVceTJu9ksTXAjZxdTXQYz-w'
+        self.casting_exeproducer_auth_header = 'eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6ImR5WEhRQThHUm1LSTI4SXozWWlJVCJ9.eyJpc3MiOiJodHRwczovL2Rldi1mc25kbmFuby51cy5hdXRoMC5jb20vIiwic3ViIjoiYXV0aDB8NWY3YmJmMTRiNDk4ZTIwMDZiOTQ1ZDNmIiwiYXVkIjoiY2FzdGluZyIsImlhdCI6MTYwMjU0ODQ2NCwiZXhwIjoxNjAyNjM0ODY0LCJhenAiOiJZeEo4Nkxoa0luN2NyWkNkMm9NRVpwcTV3Ykt4VzVMTCIsInNjb3BlIjoiIiwicGVybWlzc2lvbnMiOlsiZGVsZXRlOmFjdG9ycyIsImRlbGV0ZTptb3ZpZXMiLCJnZXQ6YWN0b3JzIiwiZ2V0Om1vdmllcyIsInBvc3Q6YWN0b3JzIiwicG9zdDptb3ZpZXMiXX0.RwBlQkvdUazCcSBq3G0KVvGffZHqIc_xLIEMSpcDcmqwDLghZ6kvvwhVhBVT2B-E_jphWygxbPQUXbsZrkLcTm0COuTaMrDxK6eH9B42zPohsPY7Qr_Q19E-XOZ1gKdYWATvQjo86OmA9DRp6xF3VVd_SZWZw5PQMW7Kt8wSBTFFS7RObF8VwDk0FQm1_B3LtY-0uobKzy-r78-BJAicr_JuNPI59m5IT7Hn6pwNTI5vXYKRI5ImV3rJ0ZE3pICfdDnos7b_qYqOe3rDOe83AgmhEWMbkudXD0Uer540qk0Lcr7GfZ4YZDpAQx5tfqiv-Nzn4OUYjlSqdKgXJ_Mx2A'
 
         self.new_actor = {
+            'id': '6',
             'name': 'Leonardo dicaprio', 
             'age': '44',
             'gender': 'male'
         }
         self.new_movie = {
+            'id': '7',
             'title': 'Inception', 
             'release_date': '2010-11-01'
         }
@@ -50,155 +54,156 @@ class CastingTestCase(unittest.TestCase):
      GET /actors and /movies
     '''
     def test_get_actors(self):
-        res = self.client().get('/actors', headers = {'Authorization':  'Bearer ' + self.casting_director_auth_header})
-        # print(res)
+        res = self.client().get('/actors', headers = {'Authorization':  'Bearer ' + self.casting_assistant_auth_header})
         data = json.loads(res.data)
-        # print(data)
 
         self.assertEqual(res.status_code, 200)
         self.assertEqual(data['success'], True)
         self.assertTrue(data['actors'])
  
-    def test_failed_get_actors(self):
-        res = self.client().get('/actors', headers = {})
-        # print(res)
+    def test_failed_get_actors_401(self):
+        res = self.client().get('/actors')
         data = json.loads(res.data)
-        # print(data)
+        print(data)
         
         self.assertEqual(res.status_code, 401)
-        # self.assertEqual(data['message'], {'code': 'authorization_header_missing', 'description':'Authorization header is expected.'})
-        self.assertFalse(data['actors'])
+        self.assertEqual(data['code'], 'authorization_header_missing')
+        self.assertEqual(data['description'], 'Authorization header is expected.')
+
+    def test_get_movies(self):
+        res = self.client().get('/movies', headers = {'Authorization':  'Bearer ' + self.casting_assistant_auth_header})
+        data = json.loads(res.data)
+
+        self.assertEqual(res.status_code, 200)
         self.assertEqual(data['success'], True)
+        self.assertTrue(data['movies'])
+        self.assertTrue(len(data['movies']))
 
-    # def test_get_movies(self):
-    #     res = self.client().get('/movies')
+    def test_failed_get_movies(self):
+        res = self.client().get('/movies',headers = {'Authorization':  'Bearer ' + self.casting_assistant_auth_header})
+        data = json.loads(res.data)
+
+        self.assertEqual(res.status_code, 200)
+        self.assertEqual(data['success'], True)
+        self.assertTrue(data['movies'])
+        self.assertFalse(len(data['movies']) > 25)
+    '''
+     DELETE /actors and /movies
+    '''
+    def test_delete_actors(self):
+        res = self.client().delete('/actors/14', headers = {'Authorization':  'Bearer ' + self.casting_director_auth_header})
+        print(res)
+        data = json.loads(res.data)
+        quest = Actor.query.filter(Actor.id == 14).one_or_none()
+
+        self.assertEqual(res.status_code, 200)
+        self.assertEqual(data['success'], True)
+        self.assertEqual(data['actorid'], 14)
+
+    def test_failed_delete_actors(self):
+        res = self.client().delete('/actors/50', headers = {'Authorization':  'Bearer ' + self.casting_director_auth_header})
+        data = json.loads(res.data)
+        quest = Actor.query.filter(Actor.id == 50).one_or_none()
+
+        self.assertEqual(res.status_code, 422)
+        self.assertEqual(data['message'], 'unprocessable')
+        self.assertEqual(data['success'], False)
+
+    def test_delete_movies(self):
+        res = self.client().delete('/movies/20', headers = {'Authorization':  'Bearer ' + self.casting_director_auth_header})
+        data = json.loads(res.data)
+        quest = Movie.query.filter(Movie.id == 20).one_or_none()
+
+        self.assertEqual(res.status_code, 200)
+        self.assertEqual(data['success'], True)
+        self.assertEqual(data['movieid'], 20)
+
+    # Using RBAC ROLE testing here ,casting Assistant  doesnt have permission to delete a field.
+    def test_failed_delete_movies(self):
+        res = self.client().delete('/movies/10', headers = {'Authorization':  'Bearer ' + self.casting_assistant_auth_header})
+        data = json.loads(res.data)
+        quest = Movie.query.filter(Movie.id == 10).one_or_none()
+
+        self.assertEqual(res.status_code, 403)
+        self.assertEqual(data['code'], 'unauthorized')
+        self.assertEqual(data['description'], 'Permission not found.')
+
+    '''
+     POST /actors and /movies
+    '''
+    def test_create_actors(self):
+        res = self.client().post('/actors', headers = {'Authorization':  'Bearer ' + self.casting_director_auth_header}, json=self.new_actor)
+        data = json.loads(res.data)
+
+        self.assertEqual(res.status_code, 200)
+        self.assertEqual(data['success'], True)
+        self.assertTrue(data['actors'])
+
+    # def test_post_actor_400(self):
+    #     res = self.client().post('/actors', json={'name': '', 'age': '', "gender": ""}, headers={'Authorization':  'Bearer ' + self.casting_director_auth_header})
     #     data = json.loads(res.data)
+    #     print(data)
 
-    #     self.assertEqual(res.status_code, 200)
-    #     self.assertEqual(data['success'], True)
-    #     self.assertTrue(data['movies'])
-    #     self.assertTrue(len(data['movies']))
-
-    # def test_failed_get_movies(self):
-    #     res = self.client().get('/movies')
-    #     data = json.loads(res.data)
-    #     # pdb.set_trace()
-
-    #     self.assertEqual(res.status_code, 200)
-    #     self.assertEqual(data['success'], True)
-    #     self.assertTrue(data['movies'])
-    #     self.assertFalse(len(data['movies']) > 10)
-    # '''
-    #  DELETE /actors and /movies
-    # '''
-    # def test_delete_actors(self):
-    #     res = self.client().delete('/actors/14')
-    #     data = json.loads(res.data)
-    #     quest = Actor.query.filter(Actor.id == 14).one_or_none()
-
-    #     self.assertEqual(res.status_code, 200)
-    #     self.assertEqual(data['success'], True)
-    #     self.assertEqual(data['actorid'], 14)
-
-    # def test_failed_delete_actors(self):
-    #     res = self.client().delete('/actors/1')
-    #     data = json.loads(res.data)
-    #     quest = Actor.query.filter(Actor.id == 1).one_or_none()
-
-    #     self.assertEqual(res.status_code, 422)
+    #     self.assertEqual(res.status_code, 400)
     #     self.assertEqual(data['success'], False)
-    #     self.assertEqual(data['message'], 'Unprocessable')
+    #     self.assertEqual(data['message'], 'Bad Request, pls check your inputs')
 
-    # def test_delete_movies(self):
-    #     res = self.client().delete('/movies/13')
-    #     data = json.loads(res.data)
-    #     quest = Movie.query.filter(Movie.id == 13).one_or_none()
+    def test_create_movies(self):
+        res = self.client().post('/movies', headers = {'Authorization':  'Bearer ' + self.casting_director_auth_header}, json=self.new_movie)
+        data = json.loads(res.data)
 
-    #     self.assertEqual(res.status_code, 200)
-    #     self.assertEqual(data['success'], True)
-    #     self.assertEqual(data['movieid'], 13)
+        self.assertEqual(res.status_code, 200)
+        self.assertEqual(data['success'], True)
+        self.assertTrue(data['movies'])
 
-    # def test_failed_delete_movies(self):
-    #     res = self.client().delete('/movies/1')
-    #     data = json.loads(res.data)
-    #     quest = Movie.query.filter(Movie.id == 1).one_or_none()
+    # using RBAC ROLE testing here ,casting assitant doesnt have permission to create new field.
+    def test_failed_create_movies_403(self):
+        res = self.client().post('/movies', headers = {'Authorization':  'Bearer ' + self.casting_assistant_auth_header}, json=self.new_movie)
+        data = json.loads(res.data)
 
-    #     self.assertEqual(res.status_code, 422)
-    #     self.assertEqual(data['success'], False)
-    #     self.assertEqual(data['message'], 'Unprocessable')
-
-    # '''
-    #  POST /actors and /movies
-    # '''
-    # def test_create_actors(self):
-    #     res = self.client().post('/actors', json=self.new_actor)
-    #     data = json.loads(res.data)
-
-    #     self.assertEqual(res.status_code, 200)
-    #     self.assertEqual(data['success'], True)
-    #     self.assertTrue(data['created'])
-
-    # def test_failed_create_actors(self):
-    #     res = self.client().post('/actors/40', json=self.new_actor)
-    #     data = json.loads(res.data)
-
-    #     self.assertEqual(res.status_code, 404)
-    #     self.assertEqual(data['success'], False)
-    #     self.assertEqual(data['message'], 'resource not found')
-
-    # def test_create_movies(self):
-    #     res = self.client().post('/movies', json=self.new_movie)
-    #     data = json.loads(res.data)
-
-    #     self.assertEqual(res.status_code, 200)
-    #     self.assertEqual(data['success'], True)
-    #     self.assertTrue(data['created'])
-
-    # def test_failed_create_movies(self):
-    #     res = self.client().post('/movies/40', json=self.new_movie)
-    #     data = json.loads(res.data)
-
-    #     self.assertEqual(res.status_code, 404)
-    #     self.assertEqual(data['success'], False)
-    #     self.assertEqual(data['message'], 'resource not found')
+        self.assertEqual(res.status_code, 403)
+        self.assertEqual(data['code'], 'unauthorized')
+        self.assertEqual(data['description'], 'Permission not found.')
+      
 
     # '''
     # PATCH /actors and /movies
     # '''
 
-    # def test_update_actors(self):
-    #     res = self.client().patch('/actors/11', json={'name': 'Al Pacino Sr', 'age': 40})
-    #     data = json.loads(res.data)
+    def test_update_actors(self):
+        res = self.client().patch('/actors/16', headers = {'Authorization':  'Bearer ' + self.casting_director_auth_header}, json={'name': 'Al Pacino Sr', 'age': 40})
+        data = json.loads(res.data)
 
-    #     self.assertEqual(res.status_code, 200)
-    #     self.assertEqual(data['success'], True)
-    #     self.assertTrue(data['actorid'])
+        self.assertEqual(res.status_code, 200)
+        self.assertEqual(data['success'], True)
+        self.assertTrue(data['actorid'])
 
-    # def test_failed_update_actors(self):
-    #     res = self.client().patch('/actors/14', json={'name': 'Al Pacino Sr', 'age': 40})
-    #     data = json.loads(res.data)
-    #     print(data)
+    # using RBAC ROLE testing here ,casting Exceutive producer doesnt have permission to update a field.
+    def test_failed_update_actors_403(self):
+        res = self.client().patch('/actors/14',headers = {'Authorization':  'Bearer ' + self.casting_exeproducer_auth_header}, json={'name': 'Al Pacino Sr', 'age': 40})
+        data = json.loads(res.data)
 
-    #     self.assertEqual(res.status_code, 404)
-    #     # self.assertFalse(data['question'])
-    #     self.assertEqual(data['actorid'], False)
+        self.assertEqual(res.status_code, 403)
+        self.assertEqual(data['code'], 'unauthorized')
+        self.assertEqual(data['description'], 'Permission not found.')
+    
+    def test_update_movies(self):
+        res = self.client().patch('/movies/4', headers = {'Authorization':  'Bearer ' + self.casting_director_auth_header}, json={'release_date': '1999-08-01'})
+        data = json.loads(res.data)
 
-    # def test_update_movies(self):
-    #     res = self.client().patch('/movies/4', json={'release_date': '1999-08-01'})
-    #     data = json.loads(res.data)
+        self.assertEqual(res.status_code, 200)
+        self.assertEqual(data['success'], True)
+        self.assertTrue(data['movieid'])
 
-    #     self.assertEqual(res.status_code, 200)
-    #     self.assertEqual(data['success'], True)
-    #     self.assertTrue(data['movieid'])
+    # Trying to Update a field/row which is not available in DB.
+    def test_failed_update_movies_422(self):
+        res = self.client().patch('/movies/25', headers = {'Authorization':  'Bearer ' + self.casting_director_auth_header}, json={'release_date': '1999-08-01'})
+        data = json.loads(res.data)
+        print(data)
 
-    # def test_failed_update_movies(self):
-    #     res = self.client().patch('/movies/14', json={'release_date': '1999-08-01'})
-    #     data = json.loads(res.data)
-    #     print(data)
-
-    #     self.assertEqual(res.status_code, 404)
-    #     # self.assertFalse(data['question'])
-    #     self.assertEqual(data['movieid'], False)
+        self.assertEqual(res.status_code, 422)
+        self.assertEqual(data['message'], 'unprocessable')
+        self.assertEqual(data['success'], False)
 
 
 
